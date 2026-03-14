@@ -812,20 +812,20 @@ Code prêt à intégrer.
 ## 📤 Résultat
 
 - Ce qui a été généré : Une interface clean et bien structuré, plus lisible qu'avant
-- Ce qui fonctionne :
-- Ce qui ne fonctionne pas :
+- Ce qui fonctionne : Section new accepted refused + Biais + Recos
+- Ce qui ne fonctionne pas : X
 
 ## ⚠️ Problèmes rencontrés
 
--
+- Aucun
 
 ## 🧪 Tests / Cas limites
 
--
--
-- ***
+- Biais marche bien avec exemple cv
+- Reco marche bien avec exemple cv
+- Interface fluide et catégorie fonctionnelles
 
 ## 📌 Apprentissage
 
-- Ce que j’ai appris :
-- Ce que je dois améliorer :
+- Ce que j’ai appris : IA capable à la fois de traiter logique en même temps que le visuel de manière efficace
+- Ce que je dois améliorer : Je pense qu'il faut vrmt segmentariser le travail / regrouper les tâches par catégorie pour que l'IA soit fonctionnel dans 99% des cas et efficace
