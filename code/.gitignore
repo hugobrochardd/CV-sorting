@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment files
+.env
+.env.*
+backend/.env
+frontend/.env
+
+# Keep sample env files tracked
+!.env.example
+!backend/.env.example
+!frontend/.env.example
