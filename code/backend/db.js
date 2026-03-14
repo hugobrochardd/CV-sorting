@@ -99,6 +99,13 @@ export async function initDB() {
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
   `);
+  ensureColumn('profiles', 'expected_stack', 'TEXT');
+  ensureColumn('profiles', 'expected_company_type', 'TEXT');
+  ensureColumn('profiles', 'expected_level', 'TEXT');
+  ensureColumn('profiles', 'backend_technologies', "TEXT NOT NULL DEFAULT '[]'");
+  ensureColumn('profiles', 'frontend_technologies', "TEXT NOT NULL DEFAULT '[]'");
+  ensureColumn('profiles', 'devops_tools', "TEXT NOT NULL DEFAULT '[]'");
+  ensureColumn('profiles', 'criteria_weights', "TEXT NOT NULL DEFAULT '{}'");
   wrapper.exec(`
     CREATE TABLE IF NOT EXISTS candidates (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -121,4 +128,13 @@ export async function initDB() {
   `);
 
   console.log('Database initialized.');
+}
+
+function ensureColumn(tableName, columnName, definition) {
+  const columns = wrapper.prepare(`PRAGMA table_info(${tableName})`).all();
+  const exists = columns.some(column => column.name === columnName);
+
+  if (!exists) {
+    wrapper.exec(`ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${definition}`);
+  }
 }

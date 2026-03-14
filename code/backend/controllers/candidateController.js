@@ -1,15 +1,8 @@
 import {
-  createCandidate,
-  getCandidate,
   getAllCandidates,
-  updateCandidateExtraction,
-  updateCandidateScore,
-  updateCandidateStatus,
+  getCandidate,
 } from '../models/candidateModel.js';
-import { createDecision } from '../models/decisionModel.js';
-import { getLatestProfile } from '../models/profileModel.js';
-import { extractCV } from '../services/extractCV.js';
-import { scoreCandidate } from '../services/scoreCandidate.js';
+import { processCandidateFromRawText } from '../services/processCandidate.js';
 
 export async function handleCreateCandidate(req, res) {
   const { raw_text } = req.body;
@@ -19,19 +12,8 @@ export async function handleCreateCandidate(req, res) {
   }
 
   try {
-    const candidate = createCandidate(raw_text);
-
-    // Extract
-    const extracted = await extractCV(raw_text);
-    updateCandidateExtraction(candidate.id, extracted);
-
-    // Score
-    const profile = getLatestProfile();
-    const scoring = await scoreCandidate(extracted, profile);
-    updateCandidateScore(candidate.id, scoring.score, scoring);
-
-    const updated = getCandidate(candidate.id);
-    res.status(201).json(updated);
+    const candidate = await processCandidateFromRawText(raw_text);
+    res.status(201).json(candidate);
   } catch (error) {
     console.error('Create candidate error:', error.message);
     res.status(500).json({ error: 'Erreur lors du traitement du CV.' });
@@ -49,38 +31,4 @@ export function handleGetCandidate(req, res) {
     return res.status(404).json({ error: 'Candidat non trouvé.' });
   }
   res.json(candidate);
-}
-
-export async function handleDecision(req, res) {
-  const { id } = req.params;
-  const { decision } = req.body;
-
-  if (!['accepted', 'rejected'].includes(decision)) {
-    return res.status(400).json({ error: 'decision doit être "accepted" ou "rejected".' });
-  }
-
-  const candidate = getCandidate(Number(id));
-  if (!candidate) {
-    return res.status(404).json({ error: 'Candidat non trouvé.' });
-  }
-
-  createDecision(Number(id), decision);
-  updateCandidateStatus(Number(id), decision);
-
-  // Re-score all 'new' candidates to reflect updated few-shot learning
-  const allCandidates = getAllCandidates();
-  const profile = getLatestProfile();
-  const newCandidates = allCandidates.filter(c => c.status === 'new' && c.extracted_data);
-
-  for (const c of newCandidates) {
-    try {
-      const scoring = await scoreCandidate(c.extracted_data, profile);
-      updateCandidateScore(c.id, scoring.score, scoring);
-    } catch (err) {
-      console.error(`Re-scoring candidate ${c.id} failed:`, err.message);
-    }
-  }
-
-  const updated = getCandidate(Number(id));
-  res.json(updated);
 }

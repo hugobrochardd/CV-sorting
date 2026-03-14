@@ -3,8 +3,8 @@ import {
   handleCreateCandidate,
   handleGetCandidates,
   handleGetCandidate,
-  handleDecision,
 } from '../controllers/candidateController.js';
+import { handleDecision } from '../controllers/decisionController.js';
 
 const router = Router();
 
