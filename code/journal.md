@@ -1,6 +1,6 @@
 # JOURNAL.md
 
----
+Pour l'ensemble de ce projet, j'ai décidé de faire du meta prompting car je pense que c'est la meilleur options pour que l'IA soit précise, j'ai affiner mon prompt avec chatGPT avant de l'envoyer.
 
 # Session 1 — Démarrage et premier MVP
 
@@ -197,7 +197,7 @@ Génère uniquement le code et la structure.
 - Ce que j’ai appris :
   Bien définir les limites de l'agent avec un agent.md et mettre les specs dans un fichier ce qui aide beaucoup l'IA
 - Ce que je dois améliorer :
-  Lui donner tous les retours que j'ai fait pour lui définir exactement les prochaines amélioration du projet
+  Lui donner tous les retours que j'ai fait pour lui définir exactement les prochaines amélioration du projet et les choses à modifier (par itération)
 
 # Session 2 : Scoring adaptatif réel + robustesse + upload fichier
 
@@ -419,7 +419,7 @@ Code prêt à intégrer.
 ## 📌 Apprentissage
 
 - Ce que j’ai appris :
-  Rentrer un peu plus dans le détail pour bien différencier critères pris en compte pour le calcul des score et pcritères défini en amont pour établir le profil qui sont encore corrélés
+  Rentrer un peu plus dans le détail pour bien différencier critères pris en compte pour le calcul des score et critères défini en amont pour établir le profil qui sont encore corrélés. Important de bien séparer les grosses tâches
 - Ce que je dois améliorer :
   Rectifier et ajouter le fait que l'on puisse ajouté plus de critères lors de l'établissement du profil + définir l'upload du CV par fichier et non pas par texte
 
@@ -610,7 +610,7 @@ Code prêt à intégrer.
 
 ## ⚠️ Problèmes rencontrés
 
-- J'ai eu quelques problèmes pour relancer le back après les modifications
+- J'ai eu quelques problèmes pour relancer le back après les modifications (j'ai du kill mon backend pour le relancer, problème de port)
 
 ## 🧪 Tests / Cas limites
 
@@ -827,5 +827,5 @@ Code prêt à intégrer.
 
 ## 📌 Apprentissage
 
-- Ce que j’ai appris : IA capable à la fois de traiter logique en même temps que le visuel de manière efficace
+- Ce que j’ai appris : IA capable à la fois de traiter le coté logique en même temps que le visuel de manière efficace
 - Ce que je dois améliorer : Je pense qu'il faut vrmt segmentariser le travail / regrouper les tâches par catégorie pour que l'IA soit fonctionnel dans 99% des cas et efficace
